@@ -161,10 +161,34 @@ GitHub Actions repeats the checks on Ubuntu for each push or pull request. This 
 
 Be able to answer: **“Why are these integration tests useful?”** They check that routing, validation, relationship rules and persistence work together over HTTP, rather than only checking isolated functions.
 
+## Step 11: Separate public browsing from administrator editing
+
+Read `services/auth.js`, `client/src/lib/auth.ts` and `AdminLogin.vue`.
+
+The public can read records without an account. Every mutation passes through server middleware before reaching a resource handler. Hiding edit controls in Vue improves the interface, while the server enforces the actual permission boundary. An unauthenticated caller receives HTTP 401 even when sending a request outside the UI.
+
+The setup script derives a salted password hash using scrypt. Login compares the derived key with a timing-safe comparison and creates a cryptographically random session token. An HttpOnly cookie carries the token; MongoDB stores its SHA-256 digest, expiry and CSRF token. In production the cookie is Secure and SameSite Strict. The frontend keeps the CSRF token in memory and attaches it to writes; the server also checks the request origin. Logout removes the database session.
+
+Sessions and the login rate-limit counter live in MongoDB because two requests can reach different Vercel instances. In-memory sessions would work locally but fail unpredictably when hosted. Expiry is checked when reading a session, independently of MongoDB's background TTL cleanup.
+
+Be able to answer: **“What is the difference between authentication and authorisation?”** Authentication establishes who is signed in. Authorisation decides whether that identity may perform an operation. This app authenticates one administrator and authorises that administrator to edit all resources.
+
+## Step 12: Publish and operate the application
+
+Read `vercel.json`, `api/index.js` and [the deployment guide](DEPLOYMENT.md).
+
+GitHub contains the source and runs CI. Vercel installs both dependency sets, builds Vue and serves its compiled files. Requests under `/api` and `/about` execute the Express app inside a Node function. The entry point caches initialization in a warm instance and retries after failed initialization. Atlas provides persistent data independent of any function's lifetime.
+
+Configuration is separate from source: the Atlas connection string and administrator password hash are Vercel secrets. The dedicated `arena` database keeps this project's records separate from other databases. Database authentication and network access are separate checks: valid credentials do not help if Atlas does not allow the host's network connection.
+
+A successful build does not prove the deployed application works. Check the public domain, frontend assets, health endpoint, loaded records, protected writes and an administrator workflow. Inspect runtime logs when the frontend loads but API calls fail. Keep the failure message generic for visitors while using diagnostic logs to identify the cause.
+
+Be able to answer: **“What happens when you push a change?”** GitHub CI runs tests and a production build. Once the Vercel Git connection is configured, Vercel independently builds a deployment from that commit. Until that connection is enabled, deployment uses the authenticated Vercel CLI. Passing CI and a ready deployment are separate facts; both need verification.
+
 ## A three-minute demonstration
 
 1. **First 30 seconds:** show Overview and explain that counts come from API data.
-2. **Next 45 seconds:** filter Athletes and register a fictional competitor.
+2. **Next 45 seconds:** filter Athletes, sign in as administrator and register a fictional competitor.
 3. **Next 45 seconds:** create an Athletics competition, add the new athlete, and move it to Live.
 4. **Next 30 seconds:** record a performance, publish it and explain the calculated place.
 5. **Last 30 seconds:** show an export, `/about`, the passing checks and the architecture.
