@@ -1,5 +1,7 @@
 # ARENA · Sports Operations
 
+[Open the live application](https://arena-sports-manager.vercel.app) · [Interview guide](docs/INTERVIEW_GUIDE.md) · [Deployment guide](docs/DEPLOYMENT.md)
+
 A sports competition management portfolio project, built with **Vue 3, TypeScript, Node.js, Express and MongoDB**. An original navy-and-lime interface brings athlete registration, competition entries, schedules and results into one workspace.
 
 The visual direction takes inspiration from the bold sports presentation of [BORNAN](https://bornan.sport/) and [FIFA](https://www.fifa.com/en/). ARENA is an independent learning project, with fictional people and competitions, and is not affiliated with either organisation.
@@ -144,6 +146,8 @@ npm run check
 This runs 15 tests, TypeScript checking and the Vite production build. Tests cover the complete CRUD workflow, entry constraints, duplicate concurrent submissions, persisted demo records, Pug rendering, ranking and ties, password hashing, public read access, protected writes, CSRF checks, logout and login rate limiting.
 
 GitHub Actions runs the same checks on Ubuntu for pushes and pull requests. Browser visual and interaction verification remains a manual check: desktop browser access was unavailable during implementation.
+
+Deployment verification on 20 November 2026 passed for the public homepage and compiled assets, MongoDB-backed resource endpoints (28 athletes, eight competitions and 12 results), session configuration, the Pug page and rejection of unauthenticated edits. Atlas integration checks also passed for CRUD, protected relationships and sessions shared across application instances. The project runs on Vercel Hobby, with GitHub's `main` branch connected for automatic deployments.
 
 Before an interview, use this quick manual demonstration:
 
