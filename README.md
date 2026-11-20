@@ -4,7 +4,7 @@
 
 A sports competition management portfolio project, built with **Vue 3, TypeScript, Node.js, Express and MongoDB**. An original navy-and-lime interface brings athlete registration, competition entries, schedules and results into one workspace.
 
-The visual direction takes inspiration from the bold sports presentation of [BORNAN](https://bornan.sport/) and [FIFA](https://www.fifa.com/en/). ARENA is an independent learning project, with fictional people and competitions, and is not affiliated with either organisation.
+The visual direction takes inspiration from the bold sports presentation of [FIFA](https://www.fifa.com/en/). ARENA is an independent learning project, with fictional people and competitions, and is not affiliated with either organisation.
 
 ## Run locally
 
