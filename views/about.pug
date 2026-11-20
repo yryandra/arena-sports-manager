@@ -1,0 +1,29 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+    title About ARENA | Sports Operations
+    style.
+      *{box-sizing:border-box}body{margin:0;background:#f4f6f8;color:#17252d;font:17px/1.7 system-ui,sans-serif}main{max-width:800px;margin:8vh auto;padding:42px;background:white;border:1px solid #e0e5e6;border-radius:16px}h1{font-size:44px;letter-spacing:-2px;line-height:1.1}a{color:#245443}small{color:#60726c}code{background:#f0f3f1;padding:3px 6px;border-radius:4px}.brand{font-weight:900;letter-spacing:4px}.stats{display:flex;gap:32px;padding:20px 0;border-block:1px solid #e0e5e6}strong{display:block;font-size:30px}@media(max-width:600px){main{margin:20px;padding:24px}h1{font-size:34px}}
+  body
+    main
+      p.brand ARENA / SPORTS OPERATIONS
+      h1 Every detail behind every victory.
+      p A full-stack portfolio project for managing athletes, competitions, entries and results. All seeded people and events are fictional. This project is independently designed and is not affiliated with BORNAN or FIFA.
+      .stats
+        div
+          strong= athletes
+          | Registered athletes
+        div
+          strong= events
+          | Competitions
+      h2 How it works
+      p Vue 3 and TypeScript render the dashboard. Axios sends JSON requests to an Express API. Mongoose validates the records, and a storage adapter saves them to a local demo file or MongoDB.
+      p This page is rendered on the server using Pug: Express combines this template with live record counts before sending HTML to the browser.
+      p
+        | Storage mode: 
+        code= mode
+        | . Demo records persist on the server between restarts.
+      p Visitors can explore the workspace. Administrator sign-in is required to create, edit or delete records. This portfolio project uses fictional demonstration data.
+      a(href="/") Open the operations dashboard

@@ -1,0 +1,10 @@
+.env
+.env.*
+.qa
+.tools
+node_modules
+client/node_modules
+client/dist
+data/*.json
+data/*.tmp
+*.log
